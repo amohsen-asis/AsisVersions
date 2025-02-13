@@ -1,0 +1,58 @@
+mode: Mainline #Important for continous delivery. each merge in main will increment
+major-version-bump-message: '\\+semver:\\s?(breaking|major)'
+minor-version-bump-message: '\\+semver:\\s?(feature|minor)'
+patch-version-bump-message: '\\+semver:\\s?(fix|patch)'
+no-bump-message: '\\+semver:\\s?(none|skip)'
+
+branches:
+  main:  # Configuration specifically for the main branch
+    regex: ^main$  # Regex to match the branch name precisely
+    tag: ''       # No prefix for tags on main (e.g., 1.0.0, not v1.0.0)
+    increment: Minor   # After ALL sprint features, increment the minor version
+    prevent-increment-of-merged-branch-version: true #Don't increment version num during pull request
+    track-merge-target: false #Track merge
+    tracks-release-branches: false #Should track
+    is-release-branch: false #Release tag
+    is-mainline: true  #Important for us, since versioning for the main branch
+    source-branches: ['develop','release']
+  develop:
+    regex: ^develop$  # Regex to match the branch name precisely
+    tag: 'beta'       # No prefix for tags on main (e.g., 1.0.0, not v1.0.0)
+    increment: Patch   # After ALL sprint features, increment the minor version
+    prevent-increment-of-merged-branch-version: false #Don't increment version num during pull request
+    track-merge-target: false #Track merge
+    tracks-release-branches: false #Should track
+    is-release-branch: false #Release tag
+    is-mainline: true
+    source-branches: ['feature'] #
+  feature:
+      regex: ^feature?[/-]
+      tag: useBranchName # Tags will be like feature/myfeature-1, feature/myfeature-2 (unique)
+      increment: Minor   # Increment strategy for feature branches
+      prevent-increment-of-merged-branch-version: false #Prevent increment of merged
+      track-merge-target: false
+      is-release-branch: false
+  release:
+      regex: ^release?[/-]
+      tag: 'rc' # Use 'rc' (release candidate) prefix for release branches
+      increment: Patch   # Use 'rc' (release candidate) prefix for release branches
+      prevent-increment-of-merged-branch-version: false #Prevent increment of merged
+      track-merge-target: false
+      is-release-branch: true
+      source-branches: ['develop', 'main'] #Release branch from Dev branch
+  hotfix:
+      regex: ^hotfix?[/-]
+      tag: 'hotfix'          # No prefix (e.g., 2.2, not v2.2)
+      increment: Patch   # Hotfixes increment the patch version
+      prevent-increment-of-merged-branch-version: false #Prevent increment
+      track-merge-target: false
+      is-release-branch: true
+
+ignore:
+  sha: []
+
+assembly-versioning-scheme: MajorMinorPatch # Set assembly version to Major.Minor.Patch
+assembly-file-versioning-scheme: MajorMinorPatch # Same for file version
+assembly-informational-format: '{Major}.{Minor}.{Patch}' # Informational format is also Major.Minor.Patch
+
+commit-message-incrementing: Enabled # Use the commit message for enforcing

@@ -12,4 +12,16 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
+  <Target Name="SetVersion" BeforeTargets="Build">
+    <Exec Command="dotnet gitversion /output json /showvariable MajorMinorPatch" ConsoleToMSBuild="true">
+      <Output TaskParameter="ConsoleOutput" PropertyName="GitVersion_MajorMinorPatch" />
+    </Exec>
+    <PropertyGroup>
+      <Version>$(GitVersion_MajorMinorPatch)</Version>
+      <AssemblyVersion>$(GitVersion_MajorMinorPatch)</AssemblyVersion>
+      <FileVersion>$(GitVersion_MajorMinorPatch)</FileVersion>
+      <InformationalVersion>$(GitVersion_MajorMinorPatch)</InformationalVersion>
+    </PropertyGroup>
+  </Target>
+
 </Project>
