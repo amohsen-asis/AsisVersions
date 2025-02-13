@@ -6,6 +6,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Register controllers as services to enable dependency injection between controllers
+builder.Services.AddScoped<ProductsController>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
