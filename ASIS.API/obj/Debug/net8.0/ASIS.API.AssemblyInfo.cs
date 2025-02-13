@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ASIS.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9005550475c69322e9f2a75f9a1eb48d3e2448d7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+053faa6ee38191accb809a860e7237175d977721")]
 [assembly: System.Reflection.AssemblyProductAttribute("ASIS.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ASIS.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
