@@ -1,0 +1,31 @@
+mode: Mainline
+major-version-bump-message: '\+semver:\s?(breaking|major)'
+minor-version-bump-message: '\+semver:\s?(feature|minor)'
+patch-version-bump-message: '\+semver:\s?(fix|patch)'
+no-bump-message: '\+semver:\s?(none|skip)'
+
+branches:
+  main:
+    regex: ^main$
+    increment: Minor
+    source-branches: ['develop','release']
+  develop:
+    regex: ^develop$
+    increment: Patch
+    source-branches: ['feature']
+  feature:
+      regex: ^feature?[/-]
+      increment: Minor
+  release:
+      regex: ^release?[/-]
+      increment: Patch
+      source-branches: ['develop', 'main']
+  hotfix:
+      regex: ^hotfix?[/-]
+      increment: Patch
+
+assembly-versioning-scheme: MajorMinorPatch
+assembly-file-versioning-scheme: MajorMinorPatch
+assembly-informational-format: '{Major}.{Minor}.{Patch}'
+
+commit-message-incrementing: Enabled
