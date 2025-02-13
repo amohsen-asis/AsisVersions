@@ -7,53 +7,25 @@ no-bump-message: '\+semver:\s?(none|skip)'
 branches:
   main:
     regex: ^main$
-    label: ''  # Changed from tag to label
     increment: Minor
-    prevent-increment-of-merged-branch-version: true
-    track-merge-target: false
-    tracks-release-branches: false
-    is-release-branch: false
-    is-mainline: true
     source-branches: ['develop','release']
   develop:
     regex: ^develop$
-    label: 'beta'  # Changed from tag to label
     increment: Patch
-    prevent-increment-of-merged-branch-version: false
-    track-merge-target: false
-    tracks-release-branches: false
-    is-release-branch: false
-    is-mainline: true
     source-branches: ['feature']
   feature:
       regex: ^feature?[/-]
-      label: useBranchName  # Changed from tag to label
       increment: Minor
-      prevent-increment-of-merged-branch-version: false
-      track-merge-target: false
-      is-release-branch: false
   release:
       regex: ^release?[/-]
-      label: 'rc'  # Changed from tag to label
       increment: Patch
-      prevent-increment-of-merged-branch-version: false
-      track-merge-target: false
-      is-release-branch: true
       source-branches: ['develop', 'main']
   hotfix:
       regex: ^hotfix?[/-]
-      label: 'hotfix'  # Changed from tag to label
       increment: Patch
-      prevent-increment-of-merged-branch-version: false
-      track-merge-target: false
-      is-release-branch: true
-
-ignore:
-  sha: []
 
 assembly-versioning-scheme: MajorMinorPatch
 assembly-file-versioning-scheme: MajorMinorPatch
 assembly-informational-format: '{Major}.{Minor}.{Patch}'
 
 commit-message-incrementing: Enabled
-

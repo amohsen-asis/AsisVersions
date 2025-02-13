@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>false</InvariantGlobalization>
-    <!-- Add these properties initially, we'll override them -->
+    <!-- Keep these!  The script will set them. -->
     <Version>1.0.0</Version>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
@@ -17,27 +17,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
-  <Target Name="SetVersion" BeforeTargets="PreBuildEvent" Condition=" '$(OS)' == 'Windows_NT' ">
-    <Exec Command="dotnet gitversion /output json /showvariable MajorMinorPatch" ConsoleToMSBuild="true">
-        <Output TaskParameter="ConsoleOutput" PropertyName="GitVersion" />
-    </Exec>
-    <PropertyGroup>
-        <Version>$(GitVersion)</Version>
-        <AssemblyVersion>$(GitVersion)</AssemblyVersion>
-        <FileVersion>$(GitVersion)</FileVersion>
-        <InformationalVersion>$(GitVersion)</InformationalVersion>
-    </PropertyGroup>
-  </Target>
+  <!-- No Target elements! -->
 
-    <Target Name="SetVersionUnix" BeforeTargets="PreBuildEvent" Condition=" '$(OS)' != 'Windows_NT' ">
-        <Exec Command="dotnet gitversion /output json /showvariable MajorMinorPatch" ConsoleToMSBuild="true" >
-            <Output TaskParameter="ConsoleOutput" PropertyName="GitVersion" />
-        </Exec>
-        <PropertyGroup>
-            <Version>$(GitVersion)</Version>
-            <AssemblyVersion>$(GitVersion)</AssemblyVersion>
-            <FileVersion>$(GitVersion)</FileVersion>
-            <InformationalVersion>$(GitVersion)</InformationalVersion>
-        </PropertyGroup>
-    </Target>
 </Project>
+
