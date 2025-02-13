@@ -24,6 +24,11 @@ branches:
       regex: ^hotfix?[/-]
       increment: Patch
 
+      fix-bug:    # ADD THIS SECTION
+    regex: ^fix-bug[/-]
+    increment: Patch
+    source-branches: [] # Or wherever you intend to merge fix-bug branches
+
 assembly-versioning-scheme: MajorMinorPatch
 assembly-file-versioning-scheme: MajorMinorPatch
 assembly-informational-format: '{Major}.{Minor}.{Patch}'
