@@ -5,6 +5,11 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>false</InvariantGlobalization>
+    <!-- Add these properties initially, we'll override them -->
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <InformationalVersion>1.0.0</InformationalVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,16 +17,27 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
-  <Target Name="SetVersion" BeforeTargets="Build">
+  <Target Name="SetVersion" BeforeTargets="PreBuildEvent" Condition=" '$(OS)' == 'Windows_NT' ">
     <Exec Command="dotnet gitversion /output json /showvariable MajorMinorPatch" ConsoleToMSBuild="true">
-      <Output TaskParameter="ConsoleOutput" PropertyName="GitVersion_MajorMinorPatch" />
+        <Output TaskParameter="ConsoleOutput" PropertyName="GitVersion" />
     </Exec>
     <PropertyGroup>
-      <Version>$(GitVersion_MajorMinorPatch)</Version>
-      <AssemblyVersion>$(GitVersion_MajorMinorPatch)</AssemblyVersion>
-      <FileVersion>$(GitVersion_MajorMinorPatch)</FileVersion>
-      <InformationalVersion>$(GitVersion_MajorMinorPatch)</InformationalVersion>
+        <Version>$(GitVersion)</Version>
+        <AssemblyVersion>$(GitVersion)</AssemblyVersion>
+        <FileVersion>$(GitVersion)</FileVersion>
+        <InformationalVersion>$(GitVersion)</InformationalVersion>
     </PropertyGroup>
   </Target>
 
+    <Target Name="SetVersionUnix" BeforeTargets="PreBuildEvent" Condition=" '$(OS)' != 'Windows_NT' ">
+        <Exec Command="dotnet gitversion /output json /showvariable MajorMinorPatch" ConsoleToMSBuild="true" >
+            <Output TaskParameter="ConsoleOutput" PropertyName="GitVersion" />
+        </Exec>
+        <PropertyGroup>
+            <Version>$(GitVersion)</Version>
+            <AssemblyVersion>$(GitVersion)</AssemblyVersion>
+            <FileVersion>$(GitVersion)</FileVersion>
+            <InformationalVersion>$(GitVersion)</InformationalVersion>
+        </PropertyGroup>
+    </Target>
 </Project>
